@@ -18,11 +18,20 @@ namespace RedditBot
             string clientSecret = ConfigurationManager.AppSettings["clientSecret"];
             string redditUsername = ConfigurationManager.AppSettings["redditUsername"];
             string redditPassword = ConfigurationManager.AppSettings["redditPassword"];
-            Authenticate access = new Authenticate("Dextersbotting AB", "1.0");
+            string name = "Dextersbotting AB";
+            string version = "1.0";
+            string subredditID = "sandboxtest";
+            string articleID = "602mhg";
+            Authenticate access = new Authenticate(name, version);
             access.AuthenticateToken(clientId, clientSecret, redditUsername, redditPassword);
-            TokenBucket bucket = new TokenBucket(60, 60);
-            Console.WriteLine(access.timeLeftInSeconds());
-            Console.WriteLine(access.isAuthenticated());
+            string accessToken = access.sendAccesstoken();
+            Console.WriteLine(accessToken);
+            RedditBot comments = new RedditBot(name, version, redditUsername, subredditID, articleID, accessToken);
+            comments.GetNasirAndComment();
+            
+            //TokenBucket bucket = new TokenBucket(60, 60);
+            //Console.WriteLine(access.timeLeftInSeconds());
+            //Console.WriteLine(access.isAuthenticated());
             Console.ReadKey();
         }
     }

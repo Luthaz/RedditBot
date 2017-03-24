@@ -15,6 +15,7 @@ namespace RedditBot
         private DateTime _timeLeft;
         private string _name;
         private string _version;
+        private string _accessToken;
 
         public Authenticate(string name, string version)
         {
@@ -56,7 +57,13 @@ namespace RedditBot
                 var responseData = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                 var accessToken = JObject.Parse(responseData).SelectToken("access_token").ToString();
                 _timeLeft = DateTime.Now.AddSeconds(Double.Parse(JObject.Parse(responseData).SelectToken("expires_in").ToString()));
+                _accessToken = accessToken;
             }
+        }
+
+        public string sendAccesstoken()
+        {
+            return _accessToken;
         }
 
         public int timeLeftInSeconds()
