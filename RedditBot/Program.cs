@@ -21,7 +21,7 @@ namespace RedditBot
             string name = "Dextersbotting AB";
             string version = "1.0";
             string subredditID = "sandboxtest";
-            string articleID = "602mhg";
+            string articleID = "6264yp";
             Authenticate access = new Authenticate(name, version);
             access.AuthenticateToken(clientId, clientSecret, redditUsername, redditPassword);
             string accessToken = access.sendAccesstoken();
